@@ -1,19 +1,30 @@
 $(document).ready(function() {
-    // Adicionar tarefa
-    $('#task-form').submit(function(e) {
-        e.preventDefault();
-        const task = $('#task-input').val().trim();
-        if(task) {
-            const newTask = $('<li></li>').text(task).hide();
-            $('#task-list').append(newTask);
-            newTask.fadeIn(); // animação de entrada
-            $('#task-input').val('');
-        }
+    // Inicializar carousel
+    $('.carousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 600,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: true
     });
 
-    // Marcar/desmarcar tarefa concluída
-    $('#task-list').on('click', 'li', function() {
-        $(this).toggleClass('done');
-        $(this).fadeOut(100).fadeIn(100); // animação visual ao riscar
+    // Aplicar máscara no telefone
+    $('#telefone').mask('(00) 00000-0000');
+
+    // Validação do formulário
+    $('#meu-form').on('submit', function(e) {
+        e.preventDefault();
+
+        const nome = $('#nome').val().trim();
+        const telefone = $('#telefone').val().trim();
+
+        if(!nome || !telefone) {
+            alert('Preencha todos os campos!');
+            return;
+        }
+
+        alert(`Formulário enviado!\nNome: ${nome}\nTelefone: ${telefone}`);
+        $(this)[0].reset();
     });
 });
